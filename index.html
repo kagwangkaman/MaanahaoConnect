@@ -3,254 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MaanahaoConnect: Interactive Prototype</title>
+<title>MaanahaoConnect Prototype</title>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---ink:#16201F;--ink2:#4A5654;--ink3:#6B7573;--paper:#F4F2EC;--card:#fff;--line:#D9D6CD;--line2:#E8E5DD;
---teal:#15514C;--teal2:#2B7A72;--soft:#E4EEEC;--amber:#8A4B0B;--amberbg:#FBEEDC;--amberln:#C4761B;--red:#B42318;--redbg:#FEE4E2;--grey:#EEF0EF}
+--ink:#16201F;--ink2:#4A5654;--ink3:#6B7573;--paper:#F4F2EC;--card:#fff;--line:#D9D6CD;--line2:#E8E5DD;--teal:#15514C;--teal2:#2B7A72;--soft:#E4EEEC;--amber:#8A4B0B;--amberbg:#FBEEDC;--amberln:#C4761B;--red:#B42318;--redbg:#FEE4E2;--grey:#EEF0EF}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#EDEFEE;--ink2:#B3BCBA;--ink3:#8F9997;--paper:#121817;--card:#1B2322;--line:#2F3A38;--line2:#26302E;--teal:#55B3A8;--teal2:#3E9B90;--soft:#1D2E2C;--amber:#F0B66B;--amberbg:#2E2519;--amberln:#E0A055;--red:#F28B82;--redbg:#3C1714;--grey:#263130}}
 :root[data-theme="dark"]{--ink:#EDEFEE;--ink2:#B3BCBA;--ink3:#8F9997;--paper:#121817;--card:#1B2322;--line:#2F3A38;--line2:#26302E;--teal:#55B3A8;--teal2:#3E9B90;--soft:#1D2E2C;--amber:#F0B66B;--amberbg:#2E2519;--amberln:#E0A055;--red:#F28B82;--redbg:#3C1714;--grey:#263130}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 Inter,system-ui,-apple-system,'Segoe UI',sans-serif}
-h1,h2,h3{font-family:Archivo,Inter,system-ui,sans-serif;letter-spacing:-.015em;margin:0}
-h1{font-size:26px;line-height:1.2}h2{font-size:18px}h3{font-size:15px}
-p{margin:0}.mut{color:var(--ink2)}.sm{font-size:14px}
-:focus-visible{outline:3px solid var(--teal2);outline-offset:2px}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
-.hd{max-width:880px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:10px;font:700 17px Archivo,sans-serif;color:var(--teal);background:none;border:0;padding:0;cursor:pointer}
-.mark{width:34px;height:34px;border-radius:9px;background:var(--teal);display:grid;place-items:center}.mark svg{width:20px;height:20px}
-nav{display:flex;gap:4px;margin-left:auto}nav[hidden]{display:none}
-nav button,.lo{background:none;border:0;border-radius:8px;padding:9px 14px;font:500 15px Inter,sans-serif;color:var(--ink2);cursor:pointer;min-height:44px}
-nav button[aria-current="page"]{background:var(--soft);color:var(--teal);font-weight:600}
-.lo{border:1px solid var(--line)}
-main{max-width:880px;margin:0 auto;padding:26px 20px 40px}
-.view[hidden]{display:none}
-.view>h1:focus{outline:none}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
-.stack{display:grid;gap:16px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:10px;font:600 16px Inter,sans-serif;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
-.btn.pri{background:var(--teal);border-color:var(--teal);color:#fff}
-.btn[disabled]{opacity:.45;cursor:not-allowed}
-.btn.pri[disabled]{background:var(--teal);}
-.btn svg{width:18px;height:18px}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.sp{flex:1}
-label,.lbl{display:block;font-weight:600;font-size:14px;margin-bottom:6px}
-input[type=text],input[type=password],select,textarea{width:100%;min-height:48px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:16px Inter,sans-serif}
-textarea{min-height:88px}
-[aria-invalid="true"]{border-color:var(--red)}
-.err{color:var(--red);font-size:14px;font-weight:500;margin-top:6px;min-height:0}
-.hint{color:var(--ink3);font-size:14px;margin-top:6px}
-.alert{background:var(--amberbg);border:1.5px solid var(--amberln);border-radius:14px;padding:16px 18px;display:flex;gap:14px}
-.alert svg{width:24px;height:24px;color:var(--amber);flex:none;margin-top:2px}.alert h2{color:var(--amber);font-size:17px}
-.alert details summary{cursor:pointer;color:var(--amber);font-weight:600;font-size:14px;margin-top:8px;min-height:32px}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.tile{text-align:left;display:grid;gap:6px;padding:20px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:inherit}
-.tile.main{background:var(--teal);border-color:var(--teal);color:#fff}
-.tile b{font:700 18px Archivo,sans-serif}.tile span{font-size:14px;opacity:.85}
-.tile svg{width:26px;height:26px}
-details.ann{border-top:1px solid var(--line2);padding:12px 0}
-details.ann summary{cursor:pointer;font-weight:600;min-height:32px}
-details.ann p{margin-top:6px;color:var(--ink2)}
-.steps{display:flex;gap:8px;list-style:none;padding:0;margin:0 0 18px;flex-wrap:wrap}
-.steps li{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink3);font-weight:500}
-.steps li b{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px}
-.steps li.on{color:var(--teal);font-weight:600}.steps li.on b{background:var(--teal);color:#fff;border-color:var(--teal)}
-.steps li.ok b{background:var(--soft);color:var(--teal);border-color:var(--teal2)}
-.steps li+li::before{content:"";width:22px;height:2px;background:var(--line);margin-right:2px}
-.opt{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;background:var(--card)}
-.opt:has(input:checked){border-color:var(--teal);background:var(--soft)}
-.opt input{margin-top:4px;width:20px;height:20px;accent-color:var(--teal)}
-.opt b{display:block}.opt span{color:var(--ink2);font-size:14px}
-dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:10px 14px;font-size:15px}dt{color:var(--ink3)}dd{margin:0;font-weight:500}
-.pill{display:inline-block;border-radius:99px;padding:3px 11px;font-size:13px;font-weight:600;white-space:nowrap}
-.p0{background:var(--amberbg);color:var(--amber)}.p1{background:var(--grey);color:var(--ink2)}.p2{background:var(--soft);color:var(--teal)}.p3{background:var(--grey);color:var(--ink3)}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.tabs button{border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:99px;padding:8px 16px;font:500 14px Inter,sans-serif;cursor:pointer;min-height:40px}
-.tabs button[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
-.req{display:grid;gap:12px}
-.prog{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;font-size:12px;color:var(--ink3)}
-.prog i{display:block;height:6px;border-radius:9px;background:var(--line2);margin-bottom:5px}.prog .d i{background:var(--teal2)}.prog .d{color:var(--ink2);font-weight:600}
-.ok{width:64px;height:64px;border-radius:50%;background:var(--soft);display:grid;place-items:center;color:var(--teal)}.ok svg{width:34px;height:34px}
-.ref{font:700 26px Archivo,sans-serif;color:var(--teal);letter-spacing:.02em}
-.next{counter-reset:n;display:grid;gap:10px;padding:0;list-style:none;margin:0}
-.next li{display:flex;gap:12px}.next li::before{counter-increment:n;content:counter(n);width:26px;height:26px;border-radius:50%;background:var(--soft);color:var(--teal);font-weight:700;font-size:13px;display:grid;place-items:center;flex:none}
-table{width:100%;border-collapse:collapse;font-size:14.5px}th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line2);vertical-align:top}th{color:var(--ink3);font-size:13px}
-#toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--teal);color:#fff;border-radius:10px;padding:12px 18px;font-weight:600;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:20;max-width:90vw}
-#toast.on{opacity:1;transform:translate(-50%,0)}
-dialog{border:1px solid var(--line);border-radius:14px;padding:22px;max-width:380px;background:var(--card);color:var(--ink)}dialog::backdrop{background:rgba(0,0,0,.45)}
-footer{max-width:880px;margin:0 auto;padding:0 20px 30px;color:var(--ink3);font-size:13px;display:flex;gap:14px;flex-wrap:wrap}
-footer button{background:none;border:0;color:var(--teal);font:600 13px Inter,sans-serif;cursor:pointer;text-decoration:underline;padding:0}
-@media (max-width:640px){.tiles{grid-template-columns:1fr}dl{grid-template-columns:1fr;gap:2px}dt{margin-top:8px}h1{font-size:23px}nav{width:100%;margin-left:0}nav button{flex:1}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,'Segoe UI',sans-serif}
+h1,h2{font-family:Archivo,Inter,sans-serif;letter-spacing:-.015em;margin:0}h1{font-size:24px}h2{font-size:17px;margin-bottom:10px}p{margin:0}.mut{color:var(--ink2)}.sm{font-size:13.5px}
+:focus-visible{outline:3px solid var(--teal2);outline-offset:2px}h1:focus{outline:none}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:9px 18px;flex-wrap:wrap}
+.brand{font:700 17px Archivo,sans-serif;color:var(--teal);display:flex;align-items:center;gap:9px}.mk{width:30px;height:30px;border-radius:8px;background:var(--teal);display:inline-block}
+.sp{flex:1}header label{font-size:12px;color:var(--ink3);display:flex;align-items:center;gap:6px}
+select,input[type=text],textarea{min-height:44px;padding:9px 11px;border:1.5px solid var(--line);border-radius:9px;background:var(--card);color:var(--ink);font:15px Inter,sans-serif;width:100%}textarea{min-height:80px}header select{width:auto}
+.app{display:grid;grid-template-columns:210px 1fr;max-width:1180px;margin:0 auto;min-height:calc(100vh - 62px)}
+aside{padding:16px 12px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+aside button{background:none;border:0;text-align:left;padding:10px 12px;border-radius:8px;font:500 14.5px Inter,sans-serif;color:var(--ink2);cursor:pointer;min-height:44px}
+aside button[aria-current]{background:var(--soft);color:var(--teal);font-weight:600}
+main{padding:22px 22px 60px;display:grid;gap:16px;align-content:start;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:9px;font:600 15px Inter,sans-serif;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn.pri{background:var(--teal);border-color:var(--teal);color:#fff}.btn.sm{min-height:36px;padding:0 12px;font-size:13.5px}.btn.dng{color:var(--red);border-color:var(--redbg)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stack{display:grid;gap:12px}
+label.l{display:block;font-weight:600;font-size:13.5px;margin-bottom:5px}.err{color:var(--red);font-size:13.5px;font-weight:500;margin-top:5px}
+.alert{background:var(--amberbg);border:1.5px solid var(--amberln);border-radius:13px;padding:14px 16px;color:var(--amber)}.alert b{font:700 16px Archivo,sans-serif}.alert p{margin-top:3px;color:var(--ink)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.tile{text-align:left;display:grid;gap:3px;padding:16px;border-radius:13px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font:inherit}
+.tile b{font:700 26px Archivo,sans-serif;color:var(--teal)}.tile span{font-size:13.5px;color:var(--ink2)}.tile.main{background:var(--teal);border-color:var(--teal)}.tile.main b,.tile.main span{color:#fff}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line2);vertical-align:top}th{font-size:12px;color:var(--ink3)}
+.pill{display:inline-block;border-radius:99px;padding:2px 10px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.p0{background:var(--amberbg);color:var(--amber)}.p1{background:var(--grey);color:var(--ink2)}.p2{background:var(--soft);color:var(--teal)}.p3{background:var(--grey);color:var(--ink3)}.p4{background:var(--redbg);color:var(--red)}
+.prog{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;font-size:12px;color:var(--ink3);margin-top:10px}.prog i{display:block;height:6px;border-radius:9px;background:var(--line2);margin-bottom:4px}.prog .d i{background:var(--teal2)}.prog .d{color:var(--ink2);font-weight:600}
+.bar{height:10px;background:var(--line2);border-radius:9px;overflow:hidden;margin:4px 0 10px}.bar i{display:block;height:100%;background:var(--teal2)}
+details{border-top:1px solid var(--line2);padding:10px 0}summary{cursor:pointer;font-weight:600}
+.pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}.pick .tile b{font-size:18px}
+dialog{border:1px solid var(--line);border-radius:13px;padding:20px;max-width:400px;width:92vw;background:var(--card);color:var(--ink)}dialog::backdrop{background:rgba(0,0,0,.45)}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--teal);color:#fff;border-radius:9px;padding:11px 17px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:20;max-width:90vw}#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:760px){.app{grid-template-columns:1fr}aside{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}aside button{white-space:nowrap}.g2{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){#toast{transition:none}}
 </style>
 </head>
 <body>
-<header><div class="hd">
-  <button class="brand" data-go="home" aria-label="MaanahaoConnect home"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V21h14V9.8"/><path d="M9.5 21v-5.5h5V21"/></svg></span>MaanahaoConnect</button>
-  <nav id="nav" hidden aria-label="Main"><button data-go="home">Home</button><button data-go="track">My requests</button><button id="out" class="lo">Log out</button></nav>
-</div></header>
-
-<main>
-<!-- 1 LOGIN -->
-<section class="view" id="v-login" aria-labelledby="h-login">
-  <div class="card stack" style="max-width:440px;margin:30px auto">
-    <div><h1 id="h-login" tabindex="-1">Log in to your household</h1><p class="mut sm" style="margin-top:6px">Barangay Maanahao, Palanas, Masbate</p></div>
-    <form id="fl" class="stack" novalidate>
-      <div><label for="hid">Household ID</label><input id="hid" type="text" autocomplete="username" placeholder="maanahao-0142"><p class="err" id="e-hid" role="alert"></p></div>
-      <div><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password"><p class="err" id="e-pw" role="alert"></p></div>
-      <button class="btn pri" id="bl" type="submit">Log in</button>
-      <button class="btn" type="button" id="demo">Use demo household</button>
-    </form>
-    <p class="hint">New household? The Barangay Secretary verifies new accounts in person before they go live.</p>
-  </div>
-</section>
-
-<!-- 2 HOME -->
-<section class="view" id="v-home" hidden aria-labelledby="h-home">
-  <div class="stack">
-    <div><h1 id="h-home" tabindex="-1">Magandang araw, Juan</h1><p class="mut" style="margin-top:4px">Dela Cruz household · Purok 3</p></div>
-    <div class="alert" role="status">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
-      <div><h2>Typhoon advisory: Signal No. 2</h2><p class="sm" style="margin-top:4px">Secure your homes and charge your phones. Evacuation opens at 6:00 AM at the barangay hall.</p>
-      <details><summary>Read full advisory</summary><p class="sm" style="margin-top:6px">Families near the creek in Purok 1 and 2 should move first. Bring IDs, medicine, and drinking water. Issued by the Barangay Captain. (Sample alert for this prototype.)</p></details></div>
-    </div>
-    <div class="tiles">
-      <button class="tile main" data-go="type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 14h6M12 11v6"/></svg><b>Request a certificate</b><span>Clearance, Residency, Indigency</span></button>
-      <button class="tile" data-go="track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>My requests</b><span id="cnt">2 requests</span></button>
-    </div>
-    <div class="card"><h2>Announcements</h2>
-      <details class="ann" style="margin-top:10px"><summary>Free medical check-up, Sept 24</summary><p>Posted by Kagawad Reyes · Barangay hall, 8:00 AM to 12:00 NN. Bring your household ID.</p></details>
-      <details class="ann"><summary>Garbage collection moved to Friday</summary><p>Posted by the Barangay Secretary. Segregate wet and dry waste before pickup.</p></details>
-    </div>
-  </div>
-</section>
-
-<!-- 3 TYPE -->
-<section class="view" id="v-type" hidden aria-labelledby="h-type">
-  <div class="stack"><div class="steps" data-step="1"></div>
-    <h1 id="h-type" tabindex="-1">Which certificate do you need?</h1>
-    <div class="stack" id="types" role="radiogroup" aria-label="Certificate type"></div>
-    <p class="err" id="e-type" role="alert"></p>
-    <div class="row"><button class="btn" data-cancel>Cancel</button><span class="sp"></span><button class="btn pri" id="n1">Continue</button></div>
-  </div>
-</section>
-
-<!-- 4 DETAILS -->
-<section class="view" id="v-details" hidden aria-labelledby="h-details">
-  <div class="stack"><div class="steps" data-step="2"></div>
-    <h1 id="h-details" tabindex="-1">Who is it for, and why?</h1>
-    <div class="card stack">
-      <div><label for="who">Requesting for</label><select id="who"><option>Juan Dela Cruz (you)</option><option>Maria Dela Cruz (spouse)</option><option>Carlo Dela Cruz (child, age 9)</option></select><p class="hint">Only members of your household are listed.</p></div>
-      <div><label for="why">Purpose</label><select id="why"><option value="">Choose a purpose</option><option>Local employment</option><option>School or scholarship</option><option>Government ID or benefit</option><option>Medical or financial assistance</option><option>Other</option></select><p class="err" id="e-why" role="alert"></p></div>
-      <div id="oth" hidden><label for="otx">Please specify</label><textarea id="otx" maxlength="120"></textarea><p class="err" id="e-otx" role="alert"></p></div>
-    </div>
-    <div class="card"><h3>Filled in for you from your household record</h3><dl style="margin-top:12px"><dt>Name</dt><dd id="a-n">Juan Dela Cruz</dd><dt>Birthdate</dt><dd>March 14, 1988</dd><dt>Address</dd><dd>Purok 3, Brgy. Maanahao, Palanas, Masbate</dd></dl><p class="hint">Something wrong? Tell the Secretary when you claim it.</p></div>
-    <div class="row"><button class="btn" data-go="type">Back</button><span class="sp"></span><button class="btn pri" id="n2">Review request</button></div>
-  </div>
-</section>
-
-<!-- 5 REVIEW -->
-<section class="view" id="v-review" hidden aria-labelledby="h-review">
-  <div class="stack"><div class="steps" data-step="3"></div>
-    <h1 id="h-review" tabindex="-1">Check before you send</h1>
-    <div class="card"><dl id="sum"></dl><div class="row" style="margin-top:14px"><button class="btn" data-go="type">Change certificate</button><button class="btn" data-go="details">Change details</button></div></div>
-    <label class="opt" style="align-items:center"><input type="checkbox" id="ok"><span style="color:var(--ink)">I confirm these details are correct. I understand the certificate is only valid once signed and sealed at the barangay hall.</span></label>
-    <p class="err" id="e-ok" role="alert"></p>
-    <div class="row"><button class="btn" data-go="details">Back</button><button class="btn" data-cancel>Cancel</button><span class="sp"></span><button class="btn pri" id="sub">Submit request</button></div>
-  </div>
-</section>
-
-<!-- 6 DONE -->
-<section class="view" id="v-done" hidden aria-labelledby="h-done">
-  <div class="card stack" style="max-width:560px;margin:10px auto">
-    <div class="ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-    <div><h1 id="h-done" tabindex="-1">Your request has been submitted</h1><p class="mut" style="margin-top:6px" id="d-sum"></p></div>
-    <div><p class="sm mut">Reference number</p><p class="ref" id="d-ref"></p></div>
-    <div><h3>What happens next</h3><ol class="next" style="margin-top:10px"><li><span>The Secretary checks your request. Status changes to <b>Verified</b>.</span></li><li><span>The certificate is printed, signed and sealed. Status changes to <b>Ready</b>.</span></li><li><span>Go to the barangay hall <b>once</b>, with a valid ID, to claim it.</span></li></ol></div>
-    <div class="row"><button class="btn pri" data-go="track">Track my request</button><button class="btn" data-go="home">Back to home</button></div>
-  </div>
-</section>
-
-<!-- 7 TRACK -->
-<section class="view" id="v-track" hidden aria-labelledby="h-track">
-  <div class="stack"><div><h1 id="h-track" tabindex="-1">My requests</h1><p class="mut" style="margin-top:4px">Come to the hall only when a request says Ready.</p></div>
-    <div class="tabs" role="group" aria-label="Filter requests"></div>
-    <div class="req" id="reqs"></div>
-    <div><button class="btn pri" data-go="type">New request</button></div>
-  </div>
-</section>
-
-<!-- 8 NOTES -->
-<section class="view" id="v-notes" hidden aria-labelledby="h-notes">
-  <div class="stack"><div><h1 id="h-notes" tabindex="-1">Usability evaluation</h1><p class="mut" style="margin-top:4px">Possible issues found while walking through the prototype, and what changed.</p></div>
-    <div class="card" style="overflow-x:auto"><table><thead><tr><th>Problem found</th><th>Improvement made</th></tr></thead><tbody>
-      <tr><td>A resident may not know which family member a certificate is for.</td><td>Added a "Requesting for" selector limited to household members, repeated on the review screen.</td></tr>
-      <tr><td>Residents may think "Submitted" means the certificate is finished and visit too early.</td><td>Confirmation screen explains the 3 next steps, and My requests says to come only when Ready.</td></tr>
-      <tr><td>On a slow piso net connection, a second tap on Submit could send a duplicate request.</td><td>Submit disables and shows "Sending..." until the result appears.</td></tr>
-      <tr><td>Someone using a borrowed phone could leave their household logged in.</td><td>Log out is always visible in the header on every screen.</td></tr>
-      <tr><td>Status shown by colour alone is hard to read in sunlight.</td><td>Every status uses a word and a progress bar, not colour only.</td></tr>
-    </tbody></table></div>
-    <div class="card"><h2>HCI principles and where they appear</h2><dl style="margin-top:12px;grid-template-columns:150px 1fr"><dt>Consistency</dt><dd>One button style, one back/cancel position on every step.</dd><dt>Visibility</dt><dd>Emergency advisory sits at the top of Home in amber, used for nothing else.</dd><dt>Feedback</dt><dd>Inline errors, loading state, toast, and a reference number after submit.</dd><dt>User control</dt><dd>Back, Cancel with confirmation, and Change links on review.</dd><dt>Error prevention</dt><dd>Continue stays blocked until a choice is made; consent checkbox is required.</dd><dt>Clear navigation</dt><dd>Header tabs show the current page; steps show "where am I" in the request.</dd><dt>Visual hierarchy</dt><dd>One teal primary action per screen; secondary actions are outlined.</dd></dl></div>
-    <div><button class="btn pri" data-go="home">Back to prototype</button></div>
-  </div>
-</section>
-</main>
-
-<footer><span>Demo data only. Barangay Maanahao, Palanas, Masbate.</span><button data-go="notes">Usability evaluation</button></footer>
+<header><span class="brand"><i class="mk"></i>MaanahaoConnect</span><span class="sp"></span><label id="sw" hidden>Demo: view as <select id="role" aria-label="Switch portal"></select></label><button class="btn sm" id="out" hidden>Log out</button></header>
+<div id="root"></div>
+<dialog id="dlg"><form method="dialog" id="df" class="stack"><h2 id="dh">Amend entry</h2><p class="sm mut">The original text stays unchanged. Your note is linked to it, timestamped, and signed.</p><textarea id="dt" aria-label="Amendment text"></textarea><p class="err" id="de"></p><div class="row"><button class="btn" value="cancel" formnovalidate>Cancel</button><span class="sp"></span><button class="btn pri" id="ds" value="ok">Save amendment</button></div></form></dialog>
 <div id="toast" role="status" aria-live="polite"></div>
-<dialog id="dlg"><h2>Leave this request?</h2><p class="mut" style="margin:8px 0 18px">Your answers on this page will not be saved.</p><div class="row"><button class="btn" id="keep">Keep editing</button><button class="btn pri" id="leave">Leave</button></div></dialog>
-
 <script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const TYPES=[['CLR','Barangay Clearance','For jobs, IDs, and business requirements'],['RES','Certificate of Residency','Proof that you live in Maanahao'],['IND','Certificate of Indigency','For scholarships and assistance programs']];
-const ST=['Submitted','Verified','Ready','Claimed'],LAB=['Pending','Verified','Ready','Claimed'];
-const S={type:null,who:'',why:'',n:43,f:'All',reqs:[{ref:'2026-RES-0038',t:'Certificate of Residency',who:'Juan Dela Cruz',date:'Oct 9',st:2},{ref:'2026-IND-0021',t:'Certificate of Indigency',who:'Maria Dela Cruz',date:'Sep 28',st:3}]};
-let cur='login',tt;
-const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),3200)};
-function go(v){cur=v;$$('.view').forEach(x=>x.hidden=x.id!=='v-'+v);$('#nav').hidden=v==='login';
-$$('nav [data-go]').forEach(b=>b.toggleAttribute('aria-current',b.dataset.go===(v==='track'?'track':v==='home'?'home':'')));
-$$('nav [data-go]').forEach(b=>{if(b.hasAttribute('aria-current'))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
-if(v==='track')renderTrack();if(v==='home')$('#cnt').textContent=S.reqs.length+' requests';
-if(v==='review')renderSum();scrollTo(0,0);const h=$('#v-'+v+' h1');h&&h.focus()}
-function steps(){$$('.steps').forEach(e=>{const n=+e.dataset.step;e.innerHTML=['Certificate','Details','Review'].map((l,i)=>`<li class="${i+1===n?'on':i+1<n?'ok':''}"${i+1===n?' aria-current="step"':''}><b>${i+1<n?'✓':i+1}</b>${l}</li>`).join('')})}
-function renderTypes(){$('#types').innerHTML=TYPES.map(([k,t,d])=>`<label class="opt"><input type="radio" name="ct" value="${k}"${S.type===k?' checked':''}><span><b style="color:var(--ink)">${t}</b><span>${d}</span></span></label>`).join('')}
-function err(id,msg,inp){const e=$('#e-'+id);e.textContent=msg||'';inp&&(msg?inp.setAttribute('aria-invalid','true'):inp.removeAttribute('aria-invalid'));return !msg}
-const tn=()=>TYPES.find(x=>x[0]===S.type)[1];
-function renderSum(){$('#sum').innerHTML=`<dt>Certificate</dt><dd>${tn()}</dd><dt>For</dt><dd>${$('#who').value}</dd><dt>Purpose</dt><dd>${S.why}</dd><dt>Claim at</dt><dd>Barangay hall, with a valid ID</dd>`}
-function renderTrack(){const f=S.f,list=S.reqs.filter(r=>f==='All'||(f==='In progress'&&r.st<2)||(f==='Ready'&&r.st===2)||(f==='Claimed'&&r.st===3));
-$('.tabs').innerHTML=['All','In progress','Ready','Claimed'].map(x=>`<button aria-pressed="${x===f}">${x}</button>`).join('');
-$$('.tabs button').forEach(b=>b.onclick=()=>{S.f=b.textContent;renderTrack()});
-$('#reqs').innerHTML=list.length?list.map(r=>`<article class="card stack"><div class="row"><div><h3>${r.t}</h3><p class="sm mut">${r.ref} · for ${r.who} · ${r.date}</p></div><span class="sp"></span><span class="pill p${r.st}">${LAB[r.st]}</span></div><div class="prog" aria-label="Progress: ${ST[r.st]}">${ST.map((s,i)=>`<div class="${i<=r.st?'d':''}"><i></i>${s}</div>`).join('')}</div>${r.st===2?'<p class="sm" style="color:var(--teal);font-weight:600">Ready. Bring a valid ID to the barangay hall.</p>':''}</article>`).join(''):'<div class="card mut">No requests in this view yet.</div>'}
-// events
-document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){go(g.dataset.go);return}
-if(e.target.closest('[data-cancel]'))$('#dlg').showModal()});
-$('#keep').onclick=()=>$('#dlg').close();$('#leave').onclick=()=>{$('#dlg').close();S.type=null;renderTypes();go('home')};
-$('#demo').onclick=()=>{$('#hid').value='maanahao-0142';$('#pw').value='demo1234';err('hid','');err('pw','')};
-$('#fl').onsubmit=e=>{e.preventDefault();const a=$('#hid'),p=$('#pw');
-const o1=err('hid',!a.value.trim()?'Enter your household ID.':!/^maanahao-\d{4}$/i.test(a.value.trim())?'Household ID looks like maanahao-0142.':'',a);
-const o2=err('pw',!p.value?'Enter your password.':p.value.length<4?'Password is at least 4 characters.':'',p);
-if(!o1||!o2){(!o1?a:p).focus();return}
-const b=$('#bl');b.disabled=true;b.textContent='Logging in...';setTimeout(()=>{b.disabled=false;b.textContent='Log in';go('home');toast('Welcome back, Juan')},700)};
-$('#out').onclick=()=>{S.type=null;$('#fl').reset();go('login');toast('You have been logged out')};
-$('#types').addEventListener('change',e=>{S.type=e.target.value;err('type','')});
-$('#n1').onclick=()=>S.type?(S.type&&go('details')):err('type','Choose a certificate to continue.');
-$('#who').onchange=e=>{$('#a-n').textContent=e.target.value.replace(/ \(.*/,'')};
-$('#why').onchange=e=>{$('#oth').hidden=e.target.value!=='Other';err('why','',e.target)};
-$('#n2').onclick=()=>{const w=$('#why'),o=$('#otx');let ok=err('why',w.value?'':'Choose a purpose.',w);
-if(w.value==='Other')ok=err('otx',o.value.trim().length<3?'Tell us the purpose in a few words.':'',o)&&ok;
-if(!ok)return;S.why=w.value==='Other'?o.value.trim():w.value;go('review')};
-$('#ok').onchange=()=>err('ok','');
-$('#sub').onclick=()=>{if(!$('#ok').checked){err('ok','Tick the box to confirm before submitting.');$('#ok').focus();return}
-const b=$('#sub');b.disabled=true;b.textContent='Sending...';
-setTimeout(()=>{const who=$('#who').value.replace(/ \(.*/,''),ref=`2026-${S.type}-00${S.n++}`;
-S.reqs.unshift({ref,t:tn(),who,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}),st:0});
-$('#d-ref').textContent=ref;$('#d-sum').textContent=`${tn()} for ${who}.`;b.disabled=false;b.textContent='Submit request';
-$('#ok').checked=false;S.type=null;renderTypes();$('#why').value='';$('#oth').hidden=true;go('done');toast('Request submitted. Reference '+ref)},900)};
-steps();renderTypes();go('login');
+const $=s=>document.querySelector(s),e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const TY=['Barangay Clearance','Certificate of Residency','Certificate of Indigency'],CD={'Barangay Clearance':'CLR','Certificate of Residency':'RES','Certificate of Indigency':'IND'},LAB=['Pending','Verified','Ready','Claimed','Rejected'];
+const WHO={resident:'Juan Dela Cruz',secretary:'Ana Ramos',captain:'Capt. Mario Bautista',kagawad:'Kgd. Reyes',tanod:'Tanod R. Gomez'},RL={resident:'Household',secretary:'Secretary (Super Admin)',captain:'Captain (Super Admin)',kagawad:'Kagawad',tanod:'Tanod'};
+const SA=[['s_dash','Dashboard'],['s_req','Requests'],['s_res','Residents'],['s_blot','Blotter'],['s_perm','Business permits'],['s_ann','Announcements'],['s_alert','Emergency alert'],['s_rep','Reports'],['s_usr','Users'],['s_aud','Audit log'],['help','Help']];
+const NAV={resident:[['r_home','Home'],['r_req','Request certificate'],['r_track','My requests'],['r_hh','Household'],['help','Help']],secretary:SA,captain:SA,kagawad:[['s_ann','Announcements'],['s_res','Residents'],['s_blot','Blotter'],['help','Help']],tanod:[['s_blot','Blotter'],['t_look','Resident lookup'],['help','Help']]};
+const S={role:null,screen:null,q:'',n:42,alert:null,amI:-1,
+res:[['Juan Dela Cruz','Dela Cruz',3,'Active',37],['Maria Dela Cruz','Dela Cruz',3,'Active',35],['Carlo Dela Cruz','Dela Cruz',3,'Active',9],['Pedro Santos','Santos',1,'Active',52],['Lita Ramos','Ramos',2,'Active',44],['Jose Villanueva','Villanueva',4,'Pending Verification',29]].map(([n,h,p,s,a])=>({n,h,p,s,a})),
+reqs:[{ref:'2026-CLR-0041',t:'Barangay Clearance',who:'Pedro Santos',why:'Local employment',date:'Oct 14',st:0},{ref:'2026-RES-0038',t:'Certificate of Residency',who:'Juan Dela Cruz',why:'School or scholarship',date:'Oct 9',st:2},{ref:'2026-IND-0021',t:'Certificate of Indigency',who:'Maria Dela Cruz',why:'Medical assistance',date:'Sep 28',st:3}],
+bl:[{id:'B-2026-017',d:'Oct 12',t:'Noise complaint',p:'Purok 2 residents',x:'Loud videoke past 10 PM.',by:'Tanod R. Gomez',am:[]},{id:'B-2026-016',d:'Oct 10',t:'Lost item',p:'Lita Ramos',x:'Reported lost wallet near the chapel.',by:'Tanod R. Gomez',am:[]}],
+pm:[['Sari-sari store','Lita Ramos','Active'],['Rice mill','Jose Reyes','Active'],['Carenderia','Nena Cruz','Renewal due']],
+an:[{t:'Free medical check-up, Sept 24',x:'Barangay hall, 8 AM to 12 NN. Bring your household ID.',by:'Kgd. Reyes',st:'Live'},{t:'Garbage collection moved to Friday',x:'Segregate wet and dry waste before pickup.',by:'Ana Ramos',st:'Live'},{t:'Clean-up drive this Saturday',x:'Meet at the covered court at 6 AM.',by:'Kgd. Reyes',st:'Pending approval'}],
+us:[['Ana Ramos','Secretary','Active'],['Capt. Mario Bautista','Captain','Active'],['Kgd. Reyes','Kagawad','Active'],['Tanod R. Gomez','Tanod','Active']],au:[]};
+const adm=()=>S.role==='secretary'||S.role==='captain',hh=()=>S.res.filter(r=>r.h==='Dela Cruz'),mine=()=>S.reqs.filter(r=>hh().some(m=>m.n===r.who));
+const log=a=>S.au.unshift([new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),WHO[S.role],a]);
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),3000)};
+const pill=(t,c)=>`<span class="pill ${c}">${t}</span>`,tr=c=>`<tr>${c.map(x=>`<td>${x}</td>`).join('')}</tr>`;
+const tbl=(h,r)=>`<div class="tw"><table><thead><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${r.join('')||'<tr><td colspan="9" class="mut">Nothing here yet.</td></tr>'}</tbody></table></div>`;
+const card=(h,b)=>`<section class="card">${h?`<h2>${h}</h2>`:''}${b}</section>`,H=(t,s)=>`<div><h1 tabindex="-1">${t}</h1>${s?`<p class="mut">${s}</p>`:''}</div>`;
+const B=(l,a,i='',c='')=>`<button class="btn sm ${c}" data-act="${a}" data-i="${i}">${l}</button>`,opt=a=>a.map(x=>`<option>${x}</option>`).join('');
+const alertH=()=>S.alert?`<div class="alert" role="status"><b>${e(S.alert.t)}</b><p>${e(S.alert.m)}</p></div>`:'';
+const T=(n,l,go)=>`<button class="tile" data-go="${go}"><b>${n}</b><span>${l}</span></button>`;
+const R={
+r_home:()=>H('Magandang araw, Juan','Dela Cruz household · Purok 3')+alertH()+`<div class="tiles"><button class="tile main" data-go="r_req"><b>Request</b><span>a certificate</span></button>${T(mine().length,'my requests','r_track')}</div>`+card('Announcements',S.an.filter(a=>a.st==='Live').map(a=>`<details><summary>${e(a.t)}</summary><p class="mut sm">${e(a.x)} · ${e(a.by)}</p></details>`).join('')),
+r_req:()=>H('Request a certificate','Name, birthdate and address fill in from your household record.')+card('',`<div class="stack"><div class="g2"><div><label class="l" for="ty">Certificate</label><select id="ty">${opt(TY)}</select></div><div><label class="l" for="wh">Requesting for</label><select id="wh">${opt(hh().map(m=>m.n))}</select></div></div><div><label class="l" for="why">Purpose</label><select id="why"><option value="">Choose a purpose</option>${opt(['Local employment','School or scholarship','Government ID or benefit','Medical assistance'])}</select></div><label class="row sm"><input type="checkbox" id="ok"> I confirm these details are correct. The certificate is valid only once signed and sealed at the hall.</label><p class="err" id="er"></p><div><button class="btn pri" data-act="rq">Submit request</button></div></div>`),
+r_track:()=>H('My requests','Come to the hall only when a request says Ready.')+(mine().map(r=>card('',`<div class="row"><div><b>${r.t}</b><p class="sm mut">${r.ref} · for ${r.who} · ${r.date}</p></div><span class="sp"></span>${pill(LAB[r.st],'p'+r.st)}</div>`+(r.st<4?`<div class="prog">${['Submitted','Verified','Ready','Claimed'].map((s,i)=>`<div class="${i<=r.st?'d':''}"><i></i>${s}</div>`).join('')}</div>`:'')+(r.st===2?'<p class="sm" style="color:var(--teal);font-weight:600;margin-top:8px">Ready. Bring a valid ID to the barangay hall.</p>':''))).join('')||card('','<p class="mut">No requests yet.</p>')),
+r_hh:()=>H('Household','Dela Cruz · Purok 3')+card('',tbl(['Member','Age','Status'],hh().map(m=>tr([m.n,m.a,pill(m.s,m.s==='Active'?'p2':'p0')])))),
+s_dash:()=>H('Dashboard','Signed in as '+RL[S.role])+(S.alert?alertH():'')+`<div class="tiles">${T(S.reqs.filter(r=>r.st===0).length,'requests to verify','s_req')}${T(S.res.filter(r=>r.s!=='Active').length,'households awaiting verification','s_res')}${T(S.bl.length,'blotter entries','s_blot')}${T(S.an.filter(a=>a.st!=='Live').length,'announcements to approve','s_ann')}</div>`+card('Recent activity',tbl(['Time','By','Action'],S.au.slice(0,5).map(tr))),
+s_req:()=>H('Certificate requests')+card('',tbl(['Ref','Resident','Type','Purpose','Status','Action'],S.reqs.map((r,i)=>tr([r.ref,r.who,r.t,r.why,pill(LAB[r.st],'p'+r.st),r.st===0?B('Verify','rq1',i,'pri')+' '+B('Reject','rqx',i,'dng'):r.st===1?B('Mark ready','rq1',i,'pri'):r.st===2?B('Mark claimed','rq1',i,'pri'):'-'])))),
+s_res:()=>H('Residents',adm()?'Approve new households after verifying them in person.':'View only.')+card('',`<label class="l" for="q">Search</label><input type="text" id="q" value="${e(S.q)}" placeholder="Name or purok" style="margin-bottom:12px">`+tbl(['Name','Household','Purok','Status',''],S.res.filter(r=>(r.n+r.p).toLowerCase().includes(S.q.toLowerCase())).map(r=>tr([r.n,r.h,r.p,pill(r.s,r.s==='Active'?'p2':'p0'),adm()&&r.s!=='Active'?B('Approve','rs',S.res.indexOf(r),'pri'):''])))),
+s_blot:()=>H('Blotter','Entries are append-only: they can be amended, never deleted.')+(adm()||S.role==='tanod'?card('New entry',`<div class="stack"><div class="g2"><div><label class="l" for="bt">Type</label><select id="bt">${opt(['Noise complaint','Lost item','Dispute','Property damage'])}</select></div><div><label class="l" for="bp">Parties involved</label><input type="text" id="bp"></div></div><div><label class="l" for="bx">Details</label><textarea id="bx"></textarea></div><p class="err" id="er"></p><div><button class="btn pri" data-act="bl">Save entry</button></div></div>`):'')+card('',tbl(['ID','Date','Type','Parties','Details','By',''],S.bl.map((b,i)=>tr([b.id,b.d,b.t,e(b.p),e(b.x)+b.am.map(a=>`<p class="sm mut">Amendment: ${e(a)}</p>`).join(''),b.by,adm()?B('Amend','bam',i):''])))),
+s_perm:()=>H('Business permits','Supports LGU coordination; it does not replace it.')+(adm()?card('Add permit',`<div class="row"><input type="text" id="pb" placeholder="Business" aria-label="Business" style="flex:1"><input type="text" id="po" placeholder="Owner" aria-label="Owner" style="flex:1">${B('Add','pm','','pri')}</div>`):'')+card('',tbl(['Business','Owner','Status'],S.pm.map(p=>tr([e(p[0]),e(p[1]),pill(p[2],p[2]==='Active'?'p2':'p0')])))),
+s_ann:()=>H('Announcements',adm()?'Your posts go live immediately.':'Your posts wait for Super Admin approval.')+card('Post an announcement',`<div class="stack"><input type="text" id="at" placeholder="Title" aria-label="Title"><textarea id="ax" placeholder="Message" aria-label="Message"></textarea><p class="err" id="er"></p><div><button class="btn pri" data-act="an">Post</button></div></div>`)+card('All announcements',tbl(['Title','By','Status',''],S.an.map((a,i)=>tr([e(a.t),a.by,pill(a.st,a.st==='Live'?'p2':'p0'),adm()&&a.st!=='Live'?B('Approve','ano',i,'pri'):''])))),
+s_alert:()=>H('Emergency alert','Shown as a priority banner on every household home screen.')+alertH()+card('Send an alert',`<div class="stack"><input type="text" id="lt" placeholder="Title, e.g. Typhoon advisory: Signal No. 2" aria-label="Alert title"><textarea id="lm" placeholder="What residents should do" aria-label="Alert message"></textarea><p class="err" id="er"></p><div class="row"><button class="btn pri" data-act="al">Send alert</button>${S.alert?B('Clear active alert','alc','','dng'):''}</div></div>`),
+s_rep:()=>{const n=S.reqs.length,c=t=>S.reqs.filter(r=>r.t===t).length;return H('Reports')+`<div class="tiles">${T(n,'total requests','s_req')}${T(S.reqs.filter(r=>r.st===3).length,'claimed','s_req')}${T(S.res.filter(r=>r.s==='Active').length,'active residents','s_res')}</div>`+card('Requests by type',TY.map(t=>`<div class="sm">${t} (${c(t)})</div><div class="bar"><i style="width:${n?c(t)/n*100:0}%"></i></div>`).join('')+B('Export CSV','csv','','pri'))},
+s_usr:()=>H('Users','The Captain is a second Super Admin so access never depends on one person.')+card('',tbl(['Name','Role','Status',''],S.us.map((u,i)=>tr([u[0],u[1],pill(u[2],u[2]==='Active'?'p2':'p3'),adm()?B(u[2]==='Active'?'Deactivate':'Activate','us',i):''])))),
+s_aud:()=>H('Audit log','Every action in this session is recorded.')+card('',tbl(['Time','By','Action'],S.au.map(tr))),
+t_look:()=>H('Resident lookup','Basic info only: name and purok.')+card('',`<label class="l" for="q">Search by name</label><input type="text" id="q" value="${e(S.q)}" style="margin-bottom:12px">`+(S.q?tbl(['Name','Purok'],S.res.filter(r=>r.s==='Active'&&r.n.toLowerCase().includes(S.q.toLowerCase())).map(r=>tr([r.n,'Purok '+r.p]))):'<p class="mut">Type a name to search.</p>')),
+help:()=>H('Help')+card('',`<p>${{resident:'Request a certificate, then watch My requests. Visit the hall once, when it says Ready.',secretary:'Verify requests, approve new households, and keep blotter amendments linked to the original.',captain:'You share Super Admin access with the Secretary and can send emergency alerts.',kagawad:'Post announcements. They go live after a Super Admin approves them.',tanod:'Record incidents in Blotter and look up residents by name.'}[S.role]}</p>`)};
+function render(f){const root=$('#root');if(!S.role){root.innerHTML=`<div style="max-width:860px;margin:30px auto;padding:0 18px"><h1 tabindex="-1">Choose a portal to explore</h1><p class="mut" style="margin:6px 0 16px">Prototype with demo data for Barangay Maanahao, Palanas, Masbate.</p><div class="pick">${Object.keys(RL).map(k=>`<button class="tile" data-act="role" data-i="${k}"><b>${RL[k]}</b><span>${WHO[k]}</span></button>`).join('')}</div></div>`;$('#sw').hidden=$('#out').hidden=true;return}
+$('#sw').hidden=$('#out').hidden=false;$('#role').innerHTML=Object.keys(RL).map(k=>`<option value="${k}"${k===S.role?' selected':''}>${RL[k]}</option>`).join('');
+root.innerHTML=`<div class="app"><aside aria-label="Main">${NAV[S.role].map(([k,l])=>`<button data-go="${k}"${k===S.screen?' aria-current="page"':''}>${l}</button>`).join('')}</aside><main>${R[S.screen]()}</main></div>`;if(f){scrollTo(0,0);$('main h1')&&$('main h1').focus()}}
+const go=s=>{S.screen=s;S.q='';render(1)},setRole=r=>{S.role=r;S.q='';S.screen=NAV[r][0][0];render(1)};
+document.addEventListener('click',ev=>{const g=ev.target.closest('[data-go]');if(g)return go(g.dataset.go);const a=ev.target.closest('[data-act]');if(!a)return;const i=+a.dataset.i,v=id=>$('#'+id).value.trim(),er=m=>{$('#er').textContent=m};
+switch(a.dataset.act){
+case'role':return setRole(a.dataset.i);
+case'rq':{if(!v('why'))return er('Choose a purpose.');if(!$('#ok').checked)return er('Tick the box to confirm before submitting.');const t=v('ty'),ref=`2026-${CD[t]}-00${++S.n}`;S.reqs.unshift({ref,t,who:v('wh'),why:v('why'),date:'Today',st:0});log('Request '+ref+' submitted');toast('Request submitted. Reference '+ref);return go('r_track')}
+case'rq1':S.reqs[i].st++;log(`${S.reqs[i].ref} marked ${LAB[S.reqs[i].st]}`);toast('Status: '+LAB[S.reqs[i].st]);break;
+case'rqx':S.reqs[i].st=4;log(S.reqs[i].ref+' rejected');toast('Request rejected');break;
+case'rs':S.res[i].s='Active';log(S.res[i].n+' household approved');toast('Household approved');break;
+case'bl':{if(!v('bp')||!v('bx'))return er('Add the parties and the details.');S.bl.unshift({id:'B-2026-0'+(16+S.bl.length+1),d:'Today',t:v('bt'),p:v('bp'),x:v('bx'),by:WHO[S.role],am:[]});log('Blotter entry saved');toast('Entry saved. It can be amended but not deleted.');break}
+case'bam':S.amI=i;$('#dh').textContent='Amend '+S.bl[i].id;$('#dt').value='';$('#de').textContent='';$('#dlg').showModal();return;
+case'pm':if(v('pb')&&v('po')){S.pm.push([v('pb'),v('po'),'Active']);log('Permit added: '+v('pb'));toast('Permit added')}break;
+case'an':{if(!v('at')||!v('ax'))return er('Add a title and a message.');S.an.unshift({t:v('at'),x:v('ax'),by:WHO[S.role],st:adm()?'Live':'Pending approval'});log('Announcement posted');toast(adm()?'Announcement is live':'Sent for Super Admin approval');break}
+case'ano':S.an[i].st='Live';log('Announcement approved');toast('Announcement is live');break;
+case'al':{if(!v('lt')||!v('lm'))return er('Add a title and what residents should do.');S.alert={t:v('lt'),m:v('lm')};log('Emergency alert sent');toast('Alert is now on every household home screen');break}
+case'alc':S.alert=null;log('Emergency alert cleared');toast('Alert cleared');break;
+case'us':S.us[i][2]=S.us[i][2]==='Active'?'Inactive':'Active';log(S.us[i][0]+' '+S.us[i][2]);break;
+case'csv':{const c='Ref,Resident,Type,Status\n'+S.reqs.map(r=>[r.ref,r.who,r.t,LAB[r.st]].join(',')).join('\n'),l=document.createElement('a');l.href=URL.createObjectURL(new Blob([c],{type:'text/csv'}));l.download='requests.csv';l.click();toast('requests.csv downloaded');return}}
+render()});
+$('#df').addEventListener('submit',ev=>{if(ev.submitter&&ev.submitter.value==='ok'){const m=$('#dt').value.trim();if(m.length<3){ev.preventDefault();$('#de').textContent='Write what changed, in a few words.';return}
+const b=S.bl[S.amI];b.am.push(m+' ('+WHO[S.role]+', today)');log(b.id+' amended');toast('Amendment linked to '+b.id);setTimeout(render,0)}});
+document.addEventListener('input',ev=>{if(ev.target.id==='q'){S.q=ev.target.value;render();const q=$('#q');q.focus();q.setSelectionRange(99,99)}});
+$('#role').onchange=ev=>setRole(ev.target.value);$('#out').onclick=()=>{S.role=null;render()};render();
 </script>
 </body>
 </html>
